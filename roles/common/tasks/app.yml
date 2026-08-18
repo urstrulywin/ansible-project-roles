@@ -1,0 +1,67 @@
+- name: install nodejs
+  package:
+    name: nodejs
+    state: present
+
+- name: "delete {{component}}.zip in /tmp"
+  file:
+    path: /tmp/{{component}}.zip
+    state: absent
+
+- name: "download {{component}} zip file"
+  get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip
+    dest: /tmp/{{component}}.zip
+
+- name: Add project system user
+  user:
+    name: project
+    system: yes
+    home: /app
+    shell: /sbin/nologin
+    comment: project system usr
+    create_home: no # defaults to yes
+
+- name: create app directory
+  file:
+    path: /app
+    state: directory
+    owner: project
+    group: project
+
+- name: Find all contents in app directory
+  ansible.builtin.find:
+    paths: /app
+    file_type: any
+  register: app_contents
+  tags: delete-app-content
+
+- name: Delete all found contents
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ app_contents.files }}"
+  tags: delete-app-content
+
+- name: "unzip {{component}} file"
+  unarchive:
+    src: /tmp/{{component}}.zip
+    dest: /app
+    remote_src: yes # the zip file is on the remote target host ({{component}}). ansible server is local here.
+
+- name: Install npm dependencies
+  community.general.npm:
+    path: /app
+    #state: present # defaults to present
+
+- name: copy {{component}}.service
+  template:
+    src: "{{component}}.service.j2"
+    dest: "/etc/systemd/system/{{component}}.service"
+
+- name: Enable and start service with daemon reload
+  ansible.builtin.systemd_service:
+    name: "{{component}}"
+    state: started
+    enabled: yes
+    daemon_reload: yes
