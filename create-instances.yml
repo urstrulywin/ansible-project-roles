@@ -1,6 +1,5 @@
 - name: roboshop instances management
-  hosts: local
-  connection: local
+  hosts: localhost
   vars:
     instances:
       [
