@@ -2,11 +2,11 @@
   hosts: localhost
   vars:
     instances: [
-        # "mongodb",
+        "mongodb",
         # "redis",
         # "mysql",
         # "rabbitmq",
-        # "catalogue",
+        "catalogue",
         # "user",
         # "cart",
         # "shipping",
