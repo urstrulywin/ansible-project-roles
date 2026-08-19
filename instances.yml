@@ -2,34 +2,34 @@
   hosts: localhost
   vars:
     instances: [
-        "mongodb",
-        # "redis",
+        # "mongodb",
+        "redis",
         # "mysql",
         # "rabbitmq",
-        "catalogue",
-        "user",
-        "cart",
+        # "catalogue",
+        # "user",
+        # "cart",
         # "shipping",
         # "payment",
-        "frontend",
+        # "frontend",
       ]
     image_id: ami-0220d79f3f480ecf5
     domain_name: cadb.online # replace with your domain
     action: create
   tasks:
-    - name: install python3-pip
-      package:
-        name: python3-pip
-        state: present
-      become: true
+    # - name: install python3-pip
+    #   package:
+    #     name: python3-pip
+    #     state: present
+    #   become: true
 
-    - name: install boto3 and botocore
-      pip:
-        name:
-          - boto3
-          - botocore
-        executable: pip3
-      become: true
+    # - name: install boto3 and botocore
+    #   pip:
+    #     name:
+    #       - boto3
+    #       - botocore
+    #     executable: pip3
+    #   become: true
 
     - name: create ec2 instances
       amazon.aws.ec2_instance:
