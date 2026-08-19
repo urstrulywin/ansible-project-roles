@@ -2,16 +2,16 @@
   hosts: localhost
   vars:
     instances: [
-        "mongodb",
+        # "mongodb",
         # "redis",
         # "mysql",
         # "rabbitmq",
-        "catalogue",
-        # "user",
-        # "cart",
+        # "catalogue",
+        "user",
+        "cart",
         # "shipping",
         # "payment",
-        "frontend",
+        # "frontend",
       ]
     image_id: ami-0220d79f3f480ecf5
     domain_name: cadb.online # replace with your domain
