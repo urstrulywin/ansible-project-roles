@@ -1,0 +1,6 @@
+- name: Enable and start service with daemon reload
+  ansible.builtin.systemd_service:
+    name: "{{component}}"
+    state: started
+    enabled: yes
+    daemon_reload: yes

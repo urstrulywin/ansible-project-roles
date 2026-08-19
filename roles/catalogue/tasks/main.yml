@@ -2,3 +2,18 @@
   ansible.builtin.import_role:
     name: common
     tasks_from: app
+
+- name: restart service
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: restart
+
+- name: mongodb client
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: mongodb-client
+
+- name: restart service
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: restart
