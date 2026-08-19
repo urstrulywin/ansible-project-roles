@@ -12,8 +12,12 @@
   ansible.builtin.import_role:
     name: common
     tasks_from: mongodb-client
+  tags:
+    - mongodb # tag lets you selectively run just the tasks with the same tag
 
 - name: restart service
   ansible.builtin.import_role:
     name: common
     tasks_from: restart
+  tags:
+    - mongodb
