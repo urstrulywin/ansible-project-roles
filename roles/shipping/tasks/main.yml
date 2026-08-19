@@ -1,0 +1,37 @@
+- name: Install Maven
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - maven
+    - mysql
+
+- name: app
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup
+
+- name: Install dependencies & build the application
+  command: mvn clean package
+  args:
+    chdir: /app
+
+- name: Move n Rename shipping-1.0.jar file
+  command: mv target/shipping-1.0.jar shipping.jar
+  args:
+    chdir: /app
+
+- name: load mysql data
+  shell: mysql -h {{ MYSQL_HOST }} -uroot -p{{ mysql_root_password }} < {{ item }}
+  args:
+    chdir: /app/db
+  loop:
+    - schema.sql
+    - app-user.sql
+    - master-data.sql
+  no_log: yes
+
+- name: restart service
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: restart

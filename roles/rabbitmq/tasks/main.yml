@@ -1,0 +1,26 @@
+- name: copy Rabbit MQ repo
+  copy:
+    src: rabbitmq.repo
+    dest: /etc/yum.repos.d/rabbitmq.repo
+
+- name: install Rabbit MQ server
+  package:
+    name: rabbitmq-server
+    state: present
+
+- name: start n enable Rabbit MQ server
+  service:
+    name: rabbitmq-server
+    state: started
+    enabled: yes
+
+- name: Create user with single vhost permissions
+  community.rabbitmq.rabbitmq_user:
+    user: "project"
+    password: "project123"
+    permissions:
+      - vhost: "/"
+        configure_priv: ".*"
+        read_priv: ".*"
+        write_priv: ".*"
+    state: present

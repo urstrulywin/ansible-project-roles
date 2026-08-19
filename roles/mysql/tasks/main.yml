@@ -1,0 +1,34 @@
+- name: install mysql server
+  package:
+    name: mysql-server
+    state: present
+
+- name: start n enable mysql server
+  service:
+    name: "{{ 'mysqld' if ansible_os_family == 'RedHat' else 'mysql' }}"
+    state: started
+    enabled: yes
+
+# - name: setup root password
+#   command: mysql_secure_installation --set-root-pass '{{ mysql_root_password }}'
+
+- name: Check if root password is already set
+  command: mysql -uroot -e "SELECT 1;"
+  register: root_check
+  changed_when: false
+  failed_when: false
+  no_log: true
+  tags: set-root-password
+
+- name: Set root password (only if currently empty/unset)
+  command: >
+    mysql -uroot
+    -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';"
+  when: root_check.rc == 0
+  no_log: true
+  tags: set-root-password
+
+- name: allow root remote access
+  shell: |
+    mysql -uroot -p{{ mysql_root_password }} -e "CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '{{ mysql_root_password }}'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+  no_log: true
