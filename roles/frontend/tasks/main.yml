@@ -1,0 +1,50 @@
+- name: install nginx
+  package:
+    name: nginx
+    state: present
+
+- name: delete frontend.zip in /tmp
+  file:
+    path: /tmp/frontend.zip
+    state: absent
+
+- name: download frontend zip file
+  get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+    dest: /tmp/frontend.zip
+
+- name: Find all contents in default nginx directory (html dir)
+  ansible.builtin.find:
+    paths: /usr/share/nginx/html/
+    file_type: any
+  register: nginx_contents
+  tags: delete-nginx-content
+
+- name: Delete all found contents
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ nginx_contents.files }}"
+  tags: delete-nginx-content
+
+- name: unzip frontend file
+  unarchive:
+    src: /tmp/frontend.zip
+    dest: /usr/share/nginx/html/
+    remote_src: yes # the zip file is on the remote target host (frontend). ansible server is local here.
+
+- name: remove default nginx conf
+  file:
+    path: /etc/nginx/nginx.conf
+    state: absent
+
+- name: copy our nginx.conf.j2
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
+- name: enable and restart nginx
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
