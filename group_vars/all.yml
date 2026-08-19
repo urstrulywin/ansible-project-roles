@@ -1,0 +1,18 @@
+ansible_user: ec2-user
+ansible_password: DevOps321
+
+mysql_root_password: Project@1
+
+domain_name: cadb.online
+security_group_id: sg-0029f7061aec1ca06
+image_id: ami-0220d79f3f480ecf5
+
+MONGODB_HOST: mongodb.cadb.online
+REDIS_HOST: redis.cadb.online
+MYSQL_HOST: mysql.cadb.online
+RABBITMQ_HOST: rabbitmq.cadb.online
+CATALOGUE_HOST: catalogue.cadb.online
+USER_HOST: user.cadb.online
+CART_HOST: cart.cadb.online
+SHIPPING_HOST: shipping.cadb.online
+PAYMENT_HOST: payment.cadb.online
