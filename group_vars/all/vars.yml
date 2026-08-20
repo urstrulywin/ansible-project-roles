@@ -1,7 +1,7 @@
 ansible_user: ec2-user
-ansible_password: "{{ vault_ansible_password }}"
+# ansible_password: "{{ vault_ansible_password }}"
 
-mysql_root_password: "{{ vault_mysql_root_password }}"
+# mysql_root_password: "{{ vault_mysql_root_password }}"
 
 domain_name: cadb.online
 ansible_host: "{{ inventory_hostname }}.{{ domain_name }}"
