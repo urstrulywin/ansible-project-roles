@@ -2,16 +2,17 @@
   hosts: localhost
   vars:
     instances: [
-        # "mongodb",
+        "mongodb",
         # "redis",
-        "mysql",
-        "rabbitmq",
-        # "catalogue",
+        # "mysql",
+        # "rabbitmq",
+        "catalogue",
         # "user",
         # "cart",
-        "shipping",
-        "payment",
-        # "frontend",
+        # "shipping",
+        # "payment",
+        "dispatch",
+        "frontend",
       ]
     action: create
   tasks:
