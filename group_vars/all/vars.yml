@@ -3,16 +3,17 @@ ansible_password: "{{ vault_ansible_password }}"
 
 mysql_root_password: "{{ vault_mysql_root_password }}"
 
-ansible_host: "{{ inventory_hostname }}.{{ vault_domain_name }}"
+domain_name: cadb.online
+ansible_host: "{{ inventory_hostname }}.{{ domain_name }}"
 
 image_id: ami-0220d79f3f480ecf5
 
-MONGODB_HOST: "mongodb.{{ vault_domain_name }}"
-REDIS_HOST: "redis.{{ vault_domain_name }}"
-MYSQL_HOST: "mysql.{{ vault_domain_name }}"
-RABBITMQ_HOST: "rabbitmq.{{ vault_domain_name }}"
-CATALOGUE_HOST: "catalogue.{{ vault_domain_name }}"
-USER_HOST: "user.{{ vault_domain_name }}"
-CART_HOST: "cart.{{ vault_domain_name }}"
-SHIPPING_HOST: "shipping.{{ vault_domain_name }}"
-PAYMENT_HOST: "payment.{{ vault_domain_name }}"
+MONGODB_HOST: "mongodb.{{ domain_name }}"
+REDIS_HOST: "redis.{{ domain_name }}"
+MYSQL_HOST: "mysql.{{ domain_name }}"
+RABBITMQ_HOST: "rabbitmq.{{ domain_name }}"
+CATALOGUE_HOST: "catalogue.{{ domain_name }}"
+USER_HOST: "user.{{ domain_name }}"
+CART_HOST: "cart.{{ domain_name }}"
+SHIPPING_HOST: "shipping.{{ domain_name }}"
+PAYMENT_HOST: "payment.{{ domain_name }}"

@@ -1,5 +1,3 @@
 ansible_password: DevOps321
 
 mysql_root_password: Project@1
-
-domain_name: cadb.online
