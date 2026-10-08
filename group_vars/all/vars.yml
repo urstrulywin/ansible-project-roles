@@ -4,16 +4,16 @@ ansible_user: ec2-user
 # mysql_root_password: "{{ vault_mysql_root_password }}"
 
 domain_name: cadb.online
-ansible_host: "{{ inventory_hostname }}.{{ domain_name }}"
+ansible_host: "{{ inventory_hostname }}-dev.{{ domain_name }}"
 
 image_id: ami-0220d79f3f480ecf5
 
-MONGODB_HOST: "mongodb.{{ domain_name }}"
-REDIS_HOST: "redis.{{ domain_name }}"
-MYSQL_HOST: "mysql.{{ domain_name }}"
-RABBITMQ_HOST: "rabbitmq.{{ domain_name }}"
-CATALOGUE_HOST: "catalogue.{{ domain_name }}"
-USER_HOST: "user.{{ domain_name }}"
-CART_HOST: "cart.{{ domain_name }}"
-SHIPPING_HOST: "shipping.{{ domain_name }}"
-PAYMENT_HOST: "payment.{{ domain_name }}"
+MONGODB_HOST: "mongodb-dev.{{ domain_name }}"
+REDIS_HOST: "redis-dev.{{ domain_name }}"
+MYSQL_HOST: "mysql-dev.{{ domain_name }}"
+RABBITMQ_HOST: "rabbitmq-dev.{{ domain_name }}"
+CATALOGUE_HOST: "catalogue-dev.{{ domain_name }}"
+USER_HOST: "user-dev.{{ domain_name }}"
+CART_HOST: "cart-dev.{{ domain_name }}"
+SHIPPING_HOST: "shipping-dev.{{ domain_name }}"
+PAYMENT_HOST: "payment-dev.{{ domain_name }}"
